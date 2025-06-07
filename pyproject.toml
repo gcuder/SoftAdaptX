@@ -11,7 +11,7 @@ authors = [
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
-keywords = ["Physics-Informed Neural Networks", "Balancing PINNs Loss", "Adaptive-Weighting", "Multi-Task-Nerual-Networks Optimization", "Gradient-Descent-Weighting", "Machine Learning"]
+keywords = ["Physics-Informed Neural Networks", "Balancing PINNs Loss", "Adaptive-Weighting", "Multi-Task-Neural-Networks Optimization", "Gradient-Descent-Weighting", "Machine Learning"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
