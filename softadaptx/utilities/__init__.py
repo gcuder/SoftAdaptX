@@ -1,2 +1,2 @@
 """Third level import for SoftAdapt utilities."""
-# Left blank intentionally.
+from softadaptx.utilities.logging import get_logger

@@ -3,6 +3,10 @@ import numpy as np
 from findiff import coefficients
 from softadaptx.constants._finite_difference_constants import (_FIRST_ORDER_COEFFICIENTS,
                         _THIRD_ORDER_COEFFICIENTS, _FIFTH_ORDER_COEFFICIENTS)
+from softadaptx.utilities.logging import get_logger
+
+# Get the logger
+logger = get_logger()
 
 
 def _get_finite_difference(input_array: np.array,
@@ -44,8 +48,7 @@ def _get_finite_difference(input_array: np.array,
     if order is None:
         order = len(input_array) - 1
         if verbose:
-            print(f"==> Interpreting finite difference order as {order} since"
-                  "no explicit order was specified.")
+            logger.info(f"Interpreting finite difference order as {order} since no explicit order was specified.")
     else:
         if order > len(input_array):
             raise ValueError("The order of finite difference computations can"
@@ -54,10 +57,8 @@ def _get_finite_difference(input_array: np.array,
                              "enough points have been stored before calling the"
                              " method.")
         elif order + 1 < len(input_array):
-            print(f"==> There are more points than 'order' + 1 ({order + 1}) "
-                  f"points (array contains {len(input_array)} values). Function"
-                  f"will use the last {order + 1} elements of loss points for "
-                  "computations.")
+            if verbose:
+                logger.info(f"There are more points than 'order' + 1 ({order + 1}) points (array contains {len(input_array)} values). Function will use the last {order + 1} elements of loss points for computations.")
             input_array = input_array[(-1*order - 1):]
 
     order_is_even = order % 2 == 0

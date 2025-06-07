@@ -3,6 +3,10 @@
 import numpy as np
 from softadaptx.base._softadapt_base_class import SoftAdaptBase
 from typing import Tuple, Union, List
+from softadaptx.utilities.logging import get_logger
+
+# Get the logger
+logger = get_logger()
 
 
 class SoftAdapt(SoftAdaptBase):
@@ -54,8 +58,8 @@ class SoftAdapt(SoftAdaptBase):
 
         """
         if len(loss_component_values) == 1:
-            print("==> Warning: You have only passed on the values of one loss"
-                  " component, which will result in trivial weighting.")
+            if verbose:
+                logger.warning("You have only passed on the values of one loss component, which will result in trivial weighting.")
 
         rates_of_change = []
 
