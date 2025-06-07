@@ -1,4 +1,4 @@
-"""Implementaion of the slope-normalized variant of SoftAdapt."""
+"""Implementation of the slope-normalized variant of SoftAdapt."""
 
 import numpy as np
 from softadaptx.base._softadapt_base_class import SoftAdaptBase
