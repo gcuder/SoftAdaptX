@@ -36,7 +36,7 @@ def _get_finite_difference(input_array: np.array,
     Raises:
         ValueError: If the number of points in the `input_array` array is
           smaller than the order of accuracy we desire.
-        Value Error: If the order of accuracy is higher than 5 and it is not an
+        ValueError: If the order of accuracy is higher than 5 and it is not an
           even number.
     """
     # First, we want to check the order and the number of loss points we are
