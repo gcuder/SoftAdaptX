@@ -56,7 +56,7 @@ def _get_finite_difference(input_array: np.array,
         elif order + 1 < len(input_array):
             print(f"==> There are more points than 'order' + 1 ({order + 1}) "
                   f"points (array contains {len(input_array)} values). Function"
-                  f"will use the last {order} elements of loss points for "
+                  f"will use the last {order + 1} elements of loss points for "
                   "computations.")
             input_array = input_array[(-1*order - 1):]
 
