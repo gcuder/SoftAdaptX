@@ -1,4 +1,4 @@
-"""Implementaion of the base class for SoftAdapt."""
+"""Implementation of the base class for SoftAdapt."""
 
 import numpy as np
 from softadaptx.constants._stability_constants import _EPSILON
