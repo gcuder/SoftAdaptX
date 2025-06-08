@@ -159,6 +159,7 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+cython_debug/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
@@ -192,3 +193,4 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+.DS_Store
