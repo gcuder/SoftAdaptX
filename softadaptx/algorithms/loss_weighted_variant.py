@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from softadaptx.base._softadapt_base_class import SoftAdaptBase
+from softadaptx.algorithms.base import SoftAdaptBase
 from softadaptx.utilities.logging import get_logger
 
 # Get the logger
@@ -26,9 +26,14 @@ class LossWeightedSoftAdapt(SoftAdaptBase):
           volume approximation of each loss component's slope.
     """
 
-    def __init__(self, beta: float = 0.1, accuracy_order: int | None = None) -> None:
+    def __init__(
+        self,
+        epsilon: float | None = None,
+        beta: float = 0.1,
+        accuracy_order: int | None = None,
+    ) -> None:
         """SoftAdapt class initializer."""
-        super().__init__()
+        super().__init__(epsilon=epsilon)
         self.beta = beta
         # Passing "None" as the order of accuracy sets the highest possible
         # accuracy in the finite difference approximation.

@@ -2,7 +2,7 @@
 
 import unittest
 
-from softadaptx.utilities._finite_difference import _get_finite_difference
+from softadaptx.utilities.finite_difference import get_finite_difference
 
 
 class TestFiniteDifference(unittest.TestCase):
@@ -18,7 +18,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test first order finite difference approximation for simple positive slope test case."""
         order = 2
         loss_points = [0, 1, 2, 3, 4, 5]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             1.0,
             approximation,
@@ -30,7 +30,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test second order finite difference approximation for simple positive slope test case."""
         order = 2
         loss_points = [0, 1, 2, 3, 4, 5]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             1.0,
             approximation,
@@ -42,7 +42,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test third order finite difference approximation for simple positive slope test case."""
         order = 3
         loss_points = [0, 2, 4, 6, 8, 10]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             2.0,
             approximation,
@@ -54,7 +54,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test fourth order finite difference approximation for simple positive slope test case."""
         order = 4
         loss_points = [0, 2, 4, 6, 8, 10]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             2.0,
             approximation,
@@ -66,7 +66,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test fifth order finite difference approximation for simple positive slope test case."""
         order = 5
         loss_points = [-5, -4, -3, -2, -1, 0]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             1.0,
             approximation,
@@ -78,7 +78,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test tenth order finite difference approximation for simple positive slope test case."""
         order = 10
         loss_points = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             1.0,
             approximation,
@@ -91,7 +91,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test first order finite difference approximation for simple negative slope test case."""
         order = 1
         loss_points = [15, 12, 9, 6, 3, 0]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             -3.0,
             approximation,
@@ -103,7 +103,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test second order finite difference approximation for simple negative slope test case."""
         order = 2
         loss_points = [5, 4, 3, 2, 1, 0]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             -1.0,
             approximation,
@@ -115,7 +115,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test third order finite difference approximation for simple negative slope test case."""
         order = 3
         loss_points = [20, 16, 12, 8, 4, 0]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             -4.0,
             approximation,
@@ -127,7 +127,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test fourth order finite difference approximation for simple negative slope test case."""
         order = 4
         loss_points = [5, 4, 3, 2, 1, 0]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             -1.0,
             approximation,
@@ -139,7 +139,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test fifth order finite difference approximation for simple negative slope test case."""
         order = 5
         loss_points = [5, 4, 3, 2, 1, 0]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             -1.0,
             approximation,
@@ -151,7 +151,7 @@ class TestFiniteDifference(unittest.TestCase):
         """Test tenth order finite difference approximation for simple negative slope test case."""
         order = 10
         loss_points = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-        approximation = _get_finite_difference(loss_points, order)
+        approximation = get_finite_difference(loss_points, order)
         self.assertAlmostEqual(
             -1.0,
             approximation,

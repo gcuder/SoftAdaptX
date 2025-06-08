@@ -1,12 +1,14 @@
 """Implementation of the base class for SoftAdaptX."""
 
+from abc import ABC, abstractmethod
+
 import numpy as np
 
-from softadaptx.constants._stability_constants import _EPSILON
-from softadaptx.utilities._finite_difference import _get_finite_difference
+from softadaptx.constants.stability_constants import EPSILON
+from softadaptx.utilities.finite_difference import get_finite_difference
 
 
-class SoftAdaptBase:
+class SoftAdaptBase(ABC):
     """Base model for any of the SoftAdaptX variants.
 
     Attributes:
@@ -15,9 +17,33 @@ class SoftAdaptBase:
 
     """
 
-    def __init__(self) -> None:
+    def __init__(self, epsilon: float | None = None) -> None:
         """Initializer of the base method."""
-        self.epsilon = _EPSILON
+        if epsilon is None:
+            epsilon = EPSILON
+        self.epsilon = epsilon
+
+    @abstractmethod
+    def get_component_weights(
+        self,
+        *loss_component_values: tuple[np.ndarray | list],
+        verbose: bool = True,
+    ) -> np.ndarray:
+        """Base class method for computing loss functions rate of change.
+
+        Args:
+            loss_component_values: A tuple of numpy arrays or lists containing loss
+              evaluations at the previous 'n' points (as many points as the order)
+              of the finite difference method.
+            verbose: Whether we want the function to print out information about
+              computations or not.
+
+        Returns:
+            A numpy array of floats containing the weights for each loss component.
+
+        Raises:
+            None.
+        """
 
     def _softmax(
         self,
@@ -57,8 +83,8 @@ class SoftAdaptBase:
 
         return exp_of_input / (np.sum(exp_of_input) + self.epsilon)
 
+    @staticmethod
     def _compute_rates_of_change(
-        self,
         input_tensor: np.ndarray,
         order: int | None = 5,
         verbose: bool = True,
@@ -82,4 +108,4 @@ class SoftAdaptBase:
             None.
 
         """
-        return _get_finite_difference(input_array=input_tensor, order=order, verbose=verbose)
+        return get_finite_difference(input_array=input_tensor, order=order, verbose=verbose)
