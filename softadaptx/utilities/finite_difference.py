@@ -3,10 +3,10 @@
 import numpy as np
 from findiff import coefficients
 
-from softadaptx.constants._finite_difference_constants import (
-    _FIFTH_ORDER_COEFFICIENTS,
-    _FIRST_ORDER_COEFFICIENTS,
-    _THIRD_ORDER_COEFFICIENTS,
+from softadaptx.constants.finite_difference_constants import (
+    FIFTH_ORDER_COEFFICIENTS,
+    FIRST_ORDER_COEFFICIENTS,
+    THIRD_ORDER_COEFFICIENTS,
 )
 from softadaptx.utilities.logging import get_logger
 
@@ -18,7 +18,7 @@ _MAX_NON_EVEN_ORDER = 5
 _MIN_HIGHER_ORDER = 3
 
 
-def _get_finite_difference(
+def get_finite_difference(
     input_array: np.array,
     order: int | None = None,
     verbose: bool = True,
@@ -94,11 +94,11 @@ def _get_finite_difference(
     if order_is_even:
         constants = coefficients(deriv=1, acc=order)["forward"]["coefficients"]
     elif order == 1:
-        constants = _FIRST_ORDER_COEFFICIENTS
+        constants = FIRST_ORDER_COEFFICIENTS
     elif order == _MIN_HIGHER_ORDER:
-        constants = _THIRD_ORDER_COEFFICIENTS
+        constants = THIRD_ORDER_COEFFICIENTS
     else:
-        constants = _FIFTH_ORDER_COEFFICIENTS
+        constants = FIFTH_ORDER_COEFFICIENTS
 
     pointwise_multiplication = [input_array[i] * constants[i] for i in range(len(constants))]
     return float(np.sum(pointwise_multiplication))
