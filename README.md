@@ -85,6 +85,21 @@ poetry run pre-commit run --all-files
 poetry run pre-commit autoupdate
 ```
 
+### Continuous Integration
+
+SoftAdaptX uses GitHub Actions for continuous integration to ensure code quality and compatibility:
+
+1. **Linting Workflow**: Automatically runs pre-commit hooks on all files to check code quality.
+   - Runs on push to main branch and pull requests
+   - Executes all pre-commit hooks including ruff, mypy, and other code quality checks
+
+2. **Testing Workflow**: Runs unit tests across multiple Python versions.
+   - Tests on Python 3.10, 3.11, and 3.12
+   - Ensures compatibility across all supported Python versions
+   - Runs on push to main branch and pull requests
+
+These workflows help maintain code quality and ensure that all changes are tested before being merged.
+
 ## General Usage and Examples
 
 SoftAdapt consists of three variants. These variants are the "original" `SoftAdapt`, `NormalizedSoftAdapt`, and `LossWeightedSoftAdapt`. Below, we discuss the logic of SoftAdapt and provide some simple examples for calculating SoftAdapt weights.
