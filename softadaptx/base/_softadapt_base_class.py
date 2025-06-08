@@ -1,12 +1,13 @@
-"""Implementation of the base class for SoftAdapt."""
+"""Implementation of the base class for SoftAdaptX."""
 
 import numpy as np
+
 from softadaptx.constants._stability_constants import _EPSILON
 from softadaptx.utilities._finite_difference import _get_finite_difference
 
 
-class SoftAdaptBase():
-    """Base model for any of the SoftAdapt variants.
+class SoftAdaptBase:
+    """Base model for any of the SoftAdaptX variants.
 
     Attributes:
         epsilon: A float which is added to the denominator of a division for
@@ -14,16 +15,18 @@ class SoftAdaptBase():
 
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initializer of the base method."""
         self.epsilon = _EPSILON
 
-    def _softmax(self,
-                 input_tensor: np.ndarray,
-                 beta: float = 1,
-                 numerator_weights: np.ndarray = None,
-                 shift_by_max_value: bool = True):
-        """Implementation of SoftAdapt's modified softmax function.
+    def _softmax(
+        self,
+        input_tensor: np.ndarray,
+        beta: float = 1,
+        numerator_weights: np.ndarray = None,
+        shift_by_max_value: bool = True,
+    ) -> np.ndarray:
+        """Implementation of SoftAdaptX's modified softmax function.
 
         Args:
             input_tensor: A numpy array of floats which will be used for computing
@@ -54,11 +57,12 @@ class SoftAdaptBase():
 
         return exp_of_input / (np.sum(exp_of_input) + self.epsilon)
 
-
-    def _compute_rates_of_change(self,
-                                 input_tensor: np.ndarray,
-                                 order: int = 5,
-                                 verbose: bool = True):
+    def _compute_rates_of_change(
+        self,
+        input_tensor: np.ndarray,
+        order: int | None = 5,
+        verbose: bool = True,
+    ) -> float:
         """Base class method for computing loss functions rate of change.
 
         Args:
@@ -78,6 +82,4 @@ class SoftAdaptBase():
             None.
 
         """
-        return _get_finite_difference(input_array = input_tensor,
-                                      order = order,
-                                      verbose = verbose)
+        return _get_finite_difference(input_array=input_tensor, order=order, verbose=verbose)

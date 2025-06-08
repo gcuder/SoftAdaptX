@@ -1,2 +1,5 @@
-"""Third level import for SoftAdapt utilities."""
+"""Third level import for softadaptx utilities."""
+
 from softadaptx.utilities.logging import get_logger
+
+__all__ = ["get_logger"]

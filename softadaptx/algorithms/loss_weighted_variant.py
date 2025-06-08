@@ -1,8 +1,8 @@
-"""Implementation of the loss-weighted variant of SoftAdapt."""
+"""Implementation of the loss-weighted variant of SoftAdaptX."""
 
 import numpy as np
+
 from softadaptx.base._softadapt_base_class import SoftAdaptBase
-from typing import Tuple, Union, List
 from softadaptx.utilities.logging import get_logger
 
 # Get the logger
@@ -26,7 +26,7 @@ class LossWeightedSoftAdapt(SoftAdaptBase):
           volume approximation of each loss component's slope.
     """
 
-    def __init__(self, beta: float = 0.1, accuracy_order: int = None):
+    def __init__(self, beta: float = 0.1, accuracy_order: int | None = None) -> None:
         """SoftAdapt class initializer."""
         super().__init__()
         self.beta = beta
@@ -34,10 +34,12 @@ class LossWeightedSoftAdapt(SoftAdaptBase):
         # accuracy in the finite difference approximation.
         self.accuracy_order = accuracy_order
 
-    def get_component_weights(self,
-                               *loss_component_values: Tuple[Union[np.ndarray, List]],
-                               verbose: bool = True):
-        """Class method for SoftAdapt weights.
+    def get_component_weights(
+        self,
+        *loss_component_values: tuple[np.ndarray | list],
+        verbose: bool = True,
+    ) -> np.ndarray:
+        """Class method for SoftAdaptX weights.
 
         Args:
             loss_component_values: A tuple consisting of the values of the each
@@ -46,6 +48,7 @@ class LossWeightedSoftAdapt(SoftAdaptBase):
             verbose: A boolean indicating user preference for whether internal
               functions should print out information and warning about
               computations.
+
         Returns:
             The computed weights for each loss components. For example, if there
             were 5 loss components, say (l_1, l_2, l_3, l_4, l_5), then the
@@ -56,31 +59,35 @@ class LossWeightedSoftAdapt(SoftAdaptBase):
             None.
 
         """
-        if len(loss_component_values) == 1:
-            if verbose:
-                logger.warning("You have only passed on the values of one loss component, which will result in trivial weighting.")
+        if len(loss_component_values) == 1 and verbose:
+            logger.warning(
+                "You have only passed on the values of one loss component, "
+                "which will result in trivial weighting.",
+            )
 
         rates_of_change = []
         average_loss_values = []
 
-        for loss_points in loss_component_values:
+        for points in loss_component_values:
             # Convert to numpy array if not already
-            if not isinstance(loss_points, np.ndarray):
-                loss_points = np.array(loss_points, dtype=float)
-            elif loss_points.dtype != float:
-                loss_points = loss_points.astype(float)
+            if not isinstance(points, np.ndarray):
+                points_array = np.array(points, dtype=float)
+            elif points.dtype != float:
+                points_array = points.astype(float)
+            else:
+                points_array = points
 
             # Compute the rates of change for each one of the loss components.
             rates_of_change.append(
-                self._compute_rates_of_change(loss_points,
-                                              self.accuracy_order,
-                                              verbose=verbose))
-            average_loss_values.append(np.mean(loss_points))
+                self._compute_rates_of_change(points_array, self.accuracy_order, verbose=verbose),
+            )
+            average_loss_values.append(np.mean(points_array))
 
         rates_of_change = np.array(rates_of_change)
         average_loss_values = np.array(average_loss_values)
         # Calculate the weight and return the values.
-        return self._softmax(input_tensor=rates_of_change,
-                             beta=self.beta,
-                             numerator_weights=average_loss_values,
-                             )
+        return self._softmax(
+            input_tensor=rates_of_change,
+            beta=self.beta,
+            numerator_weights=average_loss_values,
+        )

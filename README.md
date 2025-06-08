@@ -44,6 +44,47 @@ cd SoftAdapt
 pip install .
 ```
 
+## Development
+
+### Setting Up Development Environment
+
+If you want to contribute to SoftAdaptX, follow these steps to set up your development environment:
+
+1. Clone the repository:
+```bash
+git clone https://github.com/dr-aheydari/SoftAdapt.git
+cd SoftAdapt
+```
+
+2. Install development dependencies with Poetry:
+```bash
+poetry install
+```
+
+### Code Quality Tools
+
+SoftAdaptX uses pre-commit hooks to ensure code quality. These hooks run automatically before each commit to check for issues and format code according to project standards.
+
+1. Install pre-commit hooks:
+```bash
+poetry run pre-commit install
+```
+
+2. The following checks will run automatically on each commit:
+   - ruff: For linting and formatting Python code
+   - mypy: For type checking
+   - Various other checks for whitespace, file endings, etc.
+
+3. You can also run the checks manually:
+```bash
+poetry run pre-commit run --all-files
+```
+
+4. To update the pre-commit hooks to the latest versions:
+```bash
+poetry run pre-commit autoupdate
+```
+
 ## General Usage and Examples
 
 SoftAdapt consists of three variants. These variants are the "original" `SoftAdapt`, `NormalizedSoftAdapt`, and `LossWeightedSoftAdapt`. Below, we discuss the logic of SoftAdapt and provide some simple examples for calculating SoftAdapt weights.
@@ -78,7 +119,7 @@ softadapt_object = SoftAdapt(beta=0.1)
 normalized_softadapt_object = NormalizedSoftAdapt(beta=0.1)
 loss_weighted_softadapt_object = LossWeightedSoftAdapt(beta=0.1)
 ```
-(1) The original variant calculations are: 
+(1) The original variant calculations are:
 ```python
 softadapt_object.get_component_weights(loss_component_1, loss_component_2, loss_component_3)
 # >>> tensor([9.9343e-01, 6.5666e-03, 3.8908e-22], dtype=torch.float64)
@@ -106,7 +147,7 @@ loss_component_4 = torch.tensor([10, 20, 30, 40, 50])
 ```
 Intuitively, the fourth loss function should recieve the most amount of attention from the optimizer, followed by the component 1. The loss components 2 and 3 should recieve the least, with component 2 recieving slightly higher weight than component 3. Using the same objects we defined in Example 1, we now want to see how each variant calculates the weights:
 
-(1) `SoftAdapt`: 
+(1) `SoftAdapt`:
 ```python
 softadapt_object.get_component_weights(loss_component_1, loss_component_2, loss_component_3, loss_component_4)
 # >>> tensor([2.8850e-01, 1.9070e-03, 1.1299e-22, 7.0959e-01], dtype=torch.float64)
@@ -121,7 +162,7 @@ normalized_softadapt_object.get_component_weights(loss_component_1, loss_compone
 loss_weighted_softadapt_object.get_component_weights(loss_component_1, loss_component_2, loss_component_3, loss_component_4)
 #>>> tensor([3.8861e-02, 5.3104e-03, 3.1465e-21, 9.5583e-01], dtype=torch.float64)
 ```
-As before, we see that `SoftAdapt` and `LossWeightedSoftAdapt` follow our intuition more closely. 
+As before, we see that `SoftAdapt` and `LossWeightedSoftAdapt` follow our intuition more closely.
 
 ***In general, we highly recommend using the loss-weighted variant of SoftAdapt since it considers a running average of previous loss values as well as the rates of change***.
 
@@ -182,8 +223,8 @@ for current_epoch in range(training_epochs):
 
       # Change 4: Make sure `epochs_to_make_change` have passed before calling SoftAdapt.
       if current_epoch % epochs_to_make_updates == 0 and current_epoch != 0:
-          adapt_weights = softadapt_object.get_component_weights(torch.tensor(values_of_component_1), 
-                                                                 torch.tensor(values_of_component_2), 
+          adapt_weights = softadapt_object.get_component_weights(torch.tensor(values_of_component_1),
+                                                                 torch.tensor(values_of_component_2),
                                                                  torch.tensor(values_of_component_3),
                                                                  verbose=False,
                                                                  )
@@ -228,11 +269,11 @@ adapt_weights = torch.tensor([1,1,1])
 for current_epoch in range(training_epochs):
     # Change 4: Make sure `epochs_to_make_change` have passed before calling SoftAdapt.
     if current_epoch % epochs_to_make_updates == 0 and current_epoch != 0:
-        adapt_weights = softadapt_object.get_component_weights(torch.tensor(values_of_component_1), 
-                                                               torch.tensor(values_of_component_2), 
+        adapt_weights = softadapt_object.get_component_weights(torch.tensor(values_of_component_1),
+                                                               torch.tensor(values_of_component_2),
                                                                torch.tensor(values_of_component_3),
                                                                verbose=False,
-                                                               )  
+                                                               )
 
         # Resetting the lists to start fresh (this part is optional)
         values_of_component_1 = []
