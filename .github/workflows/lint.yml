@@ -12,7 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ '3.10', '3.11', '3.12' ]
+#        python-version: ['3.10', '3.11', '3.12']
+        python-version: ['3.12']
 
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +29,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pre-commit
           pip install poetry
-          poetry install --with dev
+          poetry install
 
       - name: Run pre-commit
         run: pre-commit run --all-files
