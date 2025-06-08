@@ -40,3 +40,4 @@ repos:
     hooks:
       - id: bandit
         args: [ "-r", "." ]
+        exclude: ^tests/

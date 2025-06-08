@@ -44,7 +44,7 @@ mypy = "^1.7.1"
 target-version = "py312"
 line-length = 100
 lint.select = ["E", "F", "B", "I", "W", "C4", "UP", "N", "ANN", "D", "S", "BLE", "A", "COM", "C90", "T10", "ISC", "ICN", "G", "PIE", "T20", "PT", "Q", "RSE", "RET", "SIM", "TID", "ARG", "ERA", "PD", "PGH", "PL", "TRY", "NPY", "RUF"]
-lint.ignore = ["D203", "D213", "TRY003"]
+lint.ignore = ["D203", "D213", "TRY003", "PT009"]
 lint.unfixable = ["F401", "F841"]
 
 [tool.ruff.lint.pydocstyle]
