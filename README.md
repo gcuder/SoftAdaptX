@@ -21,30 +21,6 @@ SoftAdaptX is officially released on PyPI. To install SoftAdaptX with pip:
 pip install softadaptx
 ```
 
-### Local installation
-
-SoftAdapt now uses [Poetry](https://python-poetry.org/) for dependency management. To install SoftAdapt with Poetry:
-
-1. First, make sure you have Poetry installed:
-
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
-2. Then, you can install SoftAdapt directly from GitHub:
-
-```bash
-poetry add git+https://github.com/dr-aheydari/SoftAdapt.git
-```
-
-3. Or clone the repository and install locally:
-
-```bash
-git clone https://github.com/dr-aheydari/SoftAdapt.git
-cd SoftAdapt
-poetry install
-```
-
 ## Contributing
 
 Contributions are welcome. Please follow these steps to contribute:
