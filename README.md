@@ -34,14 +34,14 @@ curl -sSL https://install.python-poetry.org | python3 -
 2. Then, you can install SoftAdapt directly from GitHub:
 
 ```bash
-poetry add git+https://github.com/dr-aheydari/SoftAdapt.git
+poetry add git+https://github.com/gcuder/SoftAdaptX.git
 ```
 
 3. Or clone the repository and install locally:
 
 ```bash
-git clone https://github.com/dr-aheydari/SoftAdapt.git
-cd SoftAdapt
+git clone https://github.com/gcuder/SoftAdaptX.git
+cd SoftAdaptX
 poetry install
 ```
 
